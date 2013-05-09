@@ -1,4 +1,10 @@
-
+/*                          D64  智能交通灯   v1.9.6               */
+/*      第十届大学生电子设计竞赛 D组 64号参赛队伍作品               */
+/*             @杨杰        @刘智琳         @王雨彬                 */
+//                       东北电力大学 
+//						    2013.05
+// 程序设计 	@王雨彬
+// 硬件设计		@杨杰        @刘智琳 
 #include<reg51.h>							  
 											  
 sbit nsMiku = P1^0	;			
@@ -18,10 +24,22 @@ sbit led4 = P2^3 ;
 
 
 unsigned char led[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90};	  
-unsigned char ledPrivilegeArray[2]={0xB6,0xBF};
+unsigned char ledPrivilegeArray[3]={0xB6,0x9C,0xA3};
 
 
 int Back = 0 ;
+
+void Delay10msEmergency(int count ){
+	int i,j,k ;
+	for(i = 0 ; i < count ; i++){
+		for(j = 0 ; j <10 ; j++){
+			for(k = 0 ; k < 10 ; k++) ;
+				
+			
+		}
+	}
+ }
+
 
 void LedClassics(int i){
 	led3 = 0 ;
@@ -68,8 +86,52 @@ void Delay10msPrivilege(int count ){
  void EmergencyPrivilege() {
 	nsMiku = 1 ; nsRin = 1 ; nsMeiko = 0 ;
 	ewMiku = 1 ; ewRin = 1 ; ewMeiko = 0 ;
+	
 	while(1){
-		LedPrivilege(1)	;
+	    int i = 90 ;
+		
+		
+		led1 = 0 ; 
+		P0 = ledPrivilegeArray[1]	;
+		Delay10msEmergency(i);
+		led1= 1 ;
+
+		led2 = 0 ; 
+		 P0 = ledPrivilegeArray[1]	;
+		Delay10msEmergency(i);
+		led2= 1 ;
+
+		led3 = 0 ; 
+		P0 = ledPrivilegeArray[1]	;
+		Delay10msEmergency(i);
+		led3= 1 ;
+
+		led4 = 0 ; 
+		P0 = ledPrivilegeArray[1]	;
+		Delay10msEmergency(i);
+		led4= 1 ;
+
+ 	    led4 = 0 ; 
+		P0 = ledPrivilegeArray[2]	;
+		Delay10msEmergency(i);
+		led4= 1 ;
+
+		 led3 = 0 ; 
+		P0 = ledPrivilegeArray[2]	;
+		Delay10msEmergency(i);
+		led3= 1 ;
+
+		  led2 = 0 ; 
+		P0 = ledPrivilegeArray[2]	;
+		Delay10msEmergency(i);
+		led2= 1 ;
+
+		   led1 = 0 ; 
+		P0 = ledPrivilegeArray[2]	;
+		Delay10msEmergency(i);
+		led1= 1 ;
+
+		   
 		
 	}
 }
@@ -140,8 +202,8 @@ int keyTime(){
 void Delay10msLed(int count , int l){
 	int i,j,k ;
 	for(i = 0 ; i < count ; i++){
-		for(j = 0 ; j <10 ; j++){
-			for(k = 0 ; k < 7 ; k++) {
+		for(j = 0 ; j < 4 ; j++){
+			for(k = 0 ; k < 17 ; k++) {
 				LedClassics(l) ;
 				  key();
 			    l = l + keyTime() ;
@@ -173,11 +235,11 @@ void main(){
 			
 			
 		}
-		nsMiku = 1 ;  ewMeiko = 1 ;
+		nsMiku = 1 ;  
 		for(j = 3 ; j > 0 ; j--){
-			nsRin = 1 ; ewRin = 1 ;
+			nsRin = 1 ; 
 			Delay10msLed(50 , j);
-			nsRin = 0 ; ewRin = 0 ;
+			nsRin = 0 ; 
 			Delay10msLed(50 , j);
 		}
 		
@@ -188,11 +250,11 @@ void main(){
 			k = Back ;
 		}
 
-		nsMeiko = 1 ;  ewMiku = 1 ;
+		ewMiku = 1 ;
 		for( j = 3; j > 0 ; j--){
-			nsRin = 1 ; ewRin = 1 ;
+			ewRin = 1 ;
 			Delay10msLed(50 , j);
-			nsRin = 0 ; ewRin = 0 ;
+			ewRin = 0 ;
 			Delay10msLed(50 , j);
 		}
 		
